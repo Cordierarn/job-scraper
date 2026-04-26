@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Data — alternance Lyon/Villeurbanne",
+    "keywords": "data",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Data Engineer — alternance Lyon",
+    "keywords": "data engineer",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Data Scientist — alternance Lyon",
+    "keywords": "data scientist",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Data Analyst — alternance Lyon",
+    "keywords": "data analyst",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Data — alternance Saint-Étienne",
+    "keywords": "data",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Machine Learning / IA — alternance Lyon",
+    "keywords": "machine learning",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Business Intelligence — alternance Lyon",
+    "keywords": "business intelligence",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Python développeur — alternance Lyon",
+    "keywords": "python",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": false,
+    "_comment": "Mets enabled=true pour activer (peut spammer si tu cumules avec 'data')"
+  },
+  {
+    "name": "DevOps / Cloud — alternance Lyon",
+    "keywords": "devops cloud",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": false
+  },
+  {
+    "name": "Big Data — alternance Lyon",
+    "keywords": "big data",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": false
+  }
+]

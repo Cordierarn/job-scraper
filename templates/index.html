@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Scraper — Recherche multi-sources</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo">⚡</span>
+      <h1>Job Scraper</h1>
+    </div>
+    <div class="tagline">Recherche multi-sources d'offres d'emploi</div>
+  </header>
+
+  <main>
+    <section class="search-panel card">
+      <form id="search-form" autocomplete="off">
+        <div class="row main-inputs">
+          <div class="field grow">
+            <label for="keywords">Mots-clés <span class="req">*</span></label>
+            <input type="text" id="keywords" name="keywords" placeholder="ex: développeur python, data scientist, marketing..." required>
+          </div>
+          <div class="field">
+            <label for="location">Lieu</label>
+            <input type="text" id="location" name="location" placeholder="ex: Paris, Lyon, 75...">
+          </div>
+        </div>
+
+        <div class="row filters">
+          <div class="field">
+            <label>Type de contrat</label>
+            <div class="chip-group" role="radiogroup">
+              <input type="radio" id="c-all" name="contract" value="" checked><label for="c-all" class="chip">Tous</label>
+              <input type="radio" id="c-cdi" name="contract" value="cdi"><label for="c-cdi" class="chip">CDI</label>
+              <input type="radio" id="c-cdd" name="contract" value="cdd"><label for="c-cdd" class="chip">CDD</label>
+              <input type="radio" id="c-freelance" name="contract" value="freelance"><label for="c-freelance" class="chip">Freelance</label>
+              <input type="radio" id="c-stage" name="contract" value="stage"><label for="c-stage" class="chip">Stage</label>
+              <input type="radio" id="c-alternance" name="contract" value="alternance"><label for="c-alternance" class="chip">Alternance</label>
+              <input type="radio" id="c-interim" name="contract" value="interim"><label for="c-interim" class="chip">Intérim</label>
+            </div>
+          </div>
+          <div class="field shrink">
+            <label for="limit">Offres / source</label>
+            <input type="number" id="limit" name="limit" value="30" min="5" max="200">
+          </div>
+          <div class="field shrink">
+            <label class="toggle-label">
+              <input type="checkbox" id="remote" name="remote">
+              <span class="toggle"></span>
+              <span>Télétravail</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="row sources-row">
+          <div class="field grow">
+            <label>
+              Sources
+              <a href="#" id="toggle-all" class="link-mini">tout cocher / décocher</a>
+            </label>
+            <div class="sources-grid">
+              {% for s in sources %}
+              <label class="source-chip {% if not s.configured %}disabled{% endif %}" title="{% if not s.configured %}Clé API manquante{% else %}Activée{% endif %}">
+                <input type="checkbox" name="sources" value="{{ s.name }}" {% if s.configured %}checked{% endif %} {% if not s.configured %}disabled{% endif %}>
+                <span class="source-name">{{ s.label }}</span>
+                {% if s.needs_key %}<span class="badge {% if s.configured %}ok{% else %}ko{% endif %}">{% if s.configured %}API{% else %}clé manquante{% endif %}</span>{% endif %}
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="row submit-row">
+          <button type="submit" id="submit-btn" class="btn-primary">
+            <span class="btn-label">🔍 Rechercher</span>
+            <span class="btn-spinner" hidden></span>
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <section id="status-panel" class="card" hidden>
+      <div class="status-header">
+        <h2>Résultats</h2>
+        <div id="counts" class="counts"></div>
+        <div class="export-buttons">
+          <button id="export-csv" class="btn-secondary" disabled>Export CSV</button>
+          <button id="export-json" class="btn-secondary" disabled>Export JSON</button>
+        </div>
+      </div>
+      <div id="source-statuses" class="source-statuses"></div>
+      <div class="results-toolbar">
+        <input type="text" id="filter-text" placeholder="Filtrer dans les résultats... (titre, entreprise, lieu)">
+        <select id="sort-select">
+          <option value="source">Trier : source</option>
+          <option value="title">Trier : titre</option>
+          <option value="company">Trier : entreprise</option>
+          <option value="location">Trier : lieu</option>
+          <option value="date">Trier : date</option>
+        </select>
+      </div>
+    </section>
+
+    <section id="results" class="results"></section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

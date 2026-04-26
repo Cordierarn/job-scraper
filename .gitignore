@@ -1,0 +1,30 @@
+# Secrets — JAMAIS commit
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Outputs locaux (les seuls outputs commit sont dans data/)
+resultats.csv
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Le bot doit conserver son historique entre runs CI -> on garde data/
+# (sauf cache transitoire éventuel)
+data/cache/
