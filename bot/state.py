@@ -13,17 +13,27 @@ SEEN_FILE = STATE_DIR / "seen.json"
 RETENTION_SECONDS = 60 * 24 * 3600
 
 
-def load_seen() -> dict[str, dict[str, float]]:
-    if not SEEN_FILE.exists():
+def _resolve(path: Path | str | None) -> Path:
+    if path is None:
+        return SEEN_FILE
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def load_seen(path: Path | str | None = None) -> dict[str, dict[str, float]]:
+    target = _resolve(path)
+    if not target.exists():
         return {}
     try:
-        return json.loads(SEEN_FILE.read_text(encoding="utf-8"))
+        return json.loads(target.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return {}
 
 
-def save_seen(seen: dict[str, dict[str, float]]) -> None:
-    SEEN_FILE.write_text(json.dumps(seen, ensure_ascii=False, indent=2), encoding="utf-8")
+def save_seen(seen: dict[str, dict[str, float]], path: Path | str | None = None) -> None:
+    target = _resolve(path)
+    target.write_text(json.dumps(seen, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def filter_new(alert_name: str, urls: list[str], seen: dict) -> list[str]:

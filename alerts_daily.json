@@ -1,0 +1,65 @@
+[
+  {
+    "name": "[Daily 18h] Data — alternance Lyon/Villeurbanne",
+    "keywords": "data",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Data Engineer — alternance Lyon",
+    "keywords": "data engineer",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Data Scientist — alternance Lyon",
+    "keywords": "data scientist",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Data Analyst — alternance Lyon",
+    "keywords": "data analyst",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Data — alternance Saint-Étienne",
+    "keywords": "data",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Machine Learning / IA — alternance Lyon",
+    "keywords": "machine learning",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Business Intelligence — alternance Lyon",
+    "keywords": "business intelligence",
+    "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  }
+]

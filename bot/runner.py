@@ -5,6 +5,7 @@ import json
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from scrapers import ALL_SCRAPERS, Job
@@ -27,13 +28,58 @@ class Alert:
     limit: int = 30
     enabled: bool = True
     france_only: bool = True
+    # Si défini : ne garde que les offres dont date_posted est parseable et
+    # tombe dans la fenêtre [now - max_age_hours, now]. Les offres sans date
+    # parseable sont écartées (mode strict — pour les digests "fresh").
+    max_age_hours: float | None = None
 
 
-def load_alerts() -> list[Alert]:
-    if not ALERTS_FILE.exists():
-        raise FileNotFoundError(f"alerts.json introuvable ({ALERTS_FILE})")
-    raw = json.loads(ALERTS_FILE.read_text(encoding="utf-8"))
-    return [Alert(**a) for a in raw if a.get("enabled", True)]
+def load_alerts(path: Path | str | None = None) -> list[Alert]:
+    target = Path(path) if path else ALERTS_FILE
+    if not target.exists():
+        raise FileNotFoundError(f"fichier d'alertes introuvable ({target})")
+    raw = json.loads(target.read_text(encoding="utf-8"))
+    known = {f for f in Alert.__dataclass_fields__}
+    cleaned = [{k: v for k, v in a.items() if k in known} for a in raw]
+    return [Alert(**a) for a, orig in zip(cleaned, raw) if orig.get("enabled", True)]
+
+
+def parse_job_date(raw: str | None) -> datetime | None:
+    """Parse une date_posted ISO en datetime aware UTC. None si non parseable."""
+    if not raw:
+        return None
+    s = str(raw).strip()
+    if not s:
+        return None
+    # Normalise le 'Z' final (Zulu/UTC) en +00:00 pour fromisoformat.
+    if s.endswith("Z"):
+        s = s[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(s)
+    except ValueError:
+        # Date seule au format YYYY-MM-DD
+        try:
+            dt = datetime.strptime(s[:10], "%Y-%m-%d")
+        except ValueError:
+            return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt.astimezone(timezone.utc)
+
+
+def filter_by_freshness(jobs: list[Job], max_age_hours: float) -> list[Job]:
+    """Garde uniquement les offres avec date_posted parseable dans la fenêtre."""
+    now = datetime.now(timezone.utc)
+    cutoff = now - timedelta(hours=max_age_hours)
+    fresh = []
+    for j in jobs:
+        dt = parse_job_date(j.date_posted)
+        if dt is None:
+            continue
+        # Tolérance future de 1h (horloges désynchronisées côté source)
+        if cutoff <= dt <= now + timedelta(hours=1):
+            fresh.append(j)
+    return fresh
 
 
 def is_french_location(job: Job) -> bool:
@@ -118,10 +164,16 @@ def format_alert_message(alert: Alert, new_jobs: list[Job]) -> str:
     return "".join(blocks)
 
 
-def run_alerts(*, dry_run: bool = False, telegram: TelegramClient | None = None) -> dict:
+def run_alerts(
+    *,
+    dry_run: bool = False,
+    telegram: TelegramClient | None = None,
+    alerts_file: Path | str | None = None,
+    state_file: Path | str | None = None,
+) -> dict:
     """Run all enabled alerts; return per-alert summary."""
-    alerts = load_alerts()
-    seen = load_seen()
+    alerts = load_alerts(alerts_file)
+    seen = load_seen(state_file)
     tg = telegram or TelegramClient()
     summary: dict[str, dict] = {}
 
@@ -129,6 +181,10 @@ def run_alerts(*, dry_run: bool = False, telegram: TelegramClient | None = None)
         ts = time.strftime("%H:%M:%S")
         print(f"[{ts}] alerte: {alert.name} (kw={alert.keywords!r}, locs={alert.locations})")
         jobs = collect_alert_jobs(alert)
+        if alert.max_age_hours is not None:
+            before = len(jobs)
+            jobs = filter_by_freshness(jobs, alert.max_age_hours)
+            print(f"    filtre fraîcheur ≤{alert.max_age_hours}h : {before} → {len(jobs)}")
         urls = [(j.url or "").split("?")[0].rstrip("/").lower() for j in jobs]
         new_urls = set(filter_new(alert.name, urls, seen))
         new_jobs = [j for j, u in zip(jobs, urls) if u in new_urls]
@@ -147,5 +203,5 @@ def run_alerts(*, dry_run: bool = False, telegram: TelegramClient | None = None)
             print(f"    [dry-run] aurait notifié:\n{format_alert_message(alert, new_jobs)[:500]}…")
 
     if not dry_run:
-        save_seen(seen)
+        save_seen(seen, state_file)
     return summary
