@@ -10,7 +10,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: daily-fresh-jobs
@@ -49,6 +49,15 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Restore seen_daily.json from Actions cache
+        if: steps.gate.outputs.run == 'true'
+        uses: actions/cache@v4
+        with:
+          path: data/seen_daily.json
+          key: daily-fresh-seen-${{ github.run_id }}
+          restore-keys: |
+            daily-fresh-seen-
+
       - name: Install dependencies
         if: steps.gate.outputs.run == 'true'
         run: |
@@ -69,16 +78,3 @@ jobs:
           python -m bot.main once \
             --alerts-file alerts_daily.json \
             --state-file data/seen_daily.json
-
-      - name: Commit updated seen_daily.json
-        if: steps.gate.outputs.run == 'true'
-        run: |
-          git config user.name  "job-scraper-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/seen_daily.json || true
-          if git diff --staged --quiet; then
-            echo "Pas de mise à jour de seen_daily.json."
-          else
-            git commit -m "chore(bot): refresh seen_daily offers [skip ci]"
-            git push
-          fi

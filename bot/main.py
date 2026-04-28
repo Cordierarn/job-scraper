@@ -44,7 +44,9 @@ def cmd_once(dry_run: bool, alerts_file: str | None, state_file: str | None):
     summary = run_alerts(dry_run=dry_run, alerts_file=alerts_file, state_file=state_file)
     print("\n=== Résumé ===")
     for name, s in summary.items():
-        print(f"  {name}: {s['new']} nouvelles / {s['total']} totales")
+        dup = s.get("duplicates", 0)
+        dup_str = f", {dup} dédupliquée(s)" if dup else ""
+        print(f"  {name}: {s['new']} nouvelles / {s['total']} totales{dup_str}")
     return 0
 
 

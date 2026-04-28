@@ -25,6 +25,8 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Le bot doit conserver son historique entre runs CI -> on garde data/
-# (sauf cache transitoire éventuel)
+# State du bot : conservé entre runs CI via actions/cache, pas via git.
+# (seul data/.gitkeep reste tracké pour préserver le dossier)
 data/cache/
+data/seen.json
+data/seen_daily.json

@@ -7,7 +7,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: job-bot
@@ -22,7 +22,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # On a besoin du commit history pour push ; pas la peine de tout fetch.
           fetch-depth: 1
 
       - name: Setup Python
@@ -30,6 +29,16 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+
+      - name: Restore seen.json from Actions cache
+        # Clé unique par run pour forcer la sauvegarde post-job ;
+        # restore-keys récupère le dernier cache existant pour ce workflow.
+        uses: actions/cache@v4
+        with:
+          path: data/seen.json
+          key: job-bot-seen-${{ github.run_id }}
+          restore-keys: |
+            job-bot-seen-
 
       - name: Install dependencies
         run: |
@@ -46,15 +55,3 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python -m bot.main once
-
-      - name: Commit updated seen.json
-        run: |
-          git config user.name  "job-scraper-bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/seen.json || true
-          if git diff --staged --quiet; then
-            echo "Pas de mise à jour de seen.json."
-          else
-            git commit -m "chore(bot): refresh seen offers [skip ci]"
-            git push
-          fi

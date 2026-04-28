@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import html
 import json
+import re
 import time
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
@@ -44,27 +46,88 @@ def load_alerts(path: Path | str | None = None) -> list[Alert]:
     return [Alert(**a) for a, orig in zip(cleaned, raw) if orig.get("enabled", True)]
 
 
-def parse_job_date(raw: str | None) -> datetime | None:
-    """Parse une date_posted ISO en datetime aware UTC. None si non parseable."""
+_UNIT_SECONDS = {
+    "minute": 60,
+    "min": 60,
+    "mn": 60,
+    "m": 60,
+    "heure": 3600,
+    "hour": 3600,
+    "hr": 3600,
+    "h": 3600,
+    "jour": 86400,
+    "day": 86400,
+    "j": 86400,
+    "d": 86400,
+    "semaine": 7 * 86400,
+    "week": 7 * 86400,
+    "w": 7 * 86400,
+    "mois": 30 * 86400,
+    "month": 30 * 86400,
+}
+
+_NOW_TOKENS = (
+    "aujourdhui", "today", "just posted", "just now",
+    "a l instant", "a linstant", "il y a quelques instants",
+    "moins d une minute", "less than a minute",
+    "publie aujourdhui", "posted today", "nouveau", "new",
+)
+_YESTERDAY_TOKENS = ("hier", "yesterday")
+
+
+def _normalize_for_match(s: str) -> str:
+    """Lowercase + strip accents + collapse whitespace, sans toucher aux chiffres."""
+    s = unicodedata.normalize("NFKD", s)
+    s = "".join(ch for ch in s if not unicodedata.combining(ch))
+    # Drop apostrophes (sans espace) pour que "aujourd'hui" matche "aujourdhui".
+    s = s.lower().replace("'", "").replace("’", "")
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def parse_relative_date(raw: str, *, now: datetime | None = None) -> datetime | None:
+    """Parse une date relative FR/EN ('il y a 2 jours', 'Aujourd'hui', '5 days ago')."""
+    if not raw:
+        return None
+    now = now or datetime.now(timezone.utc)
+    text = _normalize_for_match(str(raw))
+    if not text:
+        return None
+    if any(tok in text for tok in _NOW_TOKENS):
+        return now
+    if any(tok in text for tok in _YESTERDAY_TOKENS):
+        return now - timedelta(days=1)
+    # "30+ days ago" / "il y a 30+ jours" → on prend la borne basse
+    m = re.search(r"(\d+)\s*\+?\s*(minute|min|mn|heure|hour|hr|jour|day|semaine|week|mois|month|[hjdmw])s?\b", text)
+    if m:
+        n = int(m.group(1))
+        unit = m.group(2)
+        secs = _UNIT_SECONDS.get(unit)
+        if secs:
+            return now - timedelta(seconds=n * secs)
+    return None
+
+
+def parse_job_date(raw: str | None, *, now: datetime | None = None) -> datetime | None:
+    """Parse une date_posted (ISO ou relative FR/EN) en datetime aware UTC."""
     if not raw:
         return None
     s = str(raw).strip()
     if not s:
         return None
-    # Normalise le 'Z' final (Zulu/UTC) en +00:00 pour fromisoformat.
-    if s.endswith("Z"):
-        s = s[:-1] + "+00:00"
+    iso_candidate = s[:-1] + "+00:00" if s.endswith("Z") else s
     try:
-        dt = datetime.fromisoformat(s)
+        dt = datetime.fromisoformat(iso_candidate)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
     except ValueError:
-        # Date seule au format YYYY-MM-DD
-        try:
-            dt = datetime.strptime(s[:10], "%Y-%m-%d")
-        except ValueError:
-            return None
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt.astimezone(timezone.utc)
+        pass
+    try:
+        dt = datetime.strptime(s[:10], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        return dt
+    except ValueError:
+        pass
+    return parse_relative_date(s, now=now)
 
 
 def filter_by_freshness(jobs: list[Job], max_age_hours: float) -> list[Job]:
@@ -176,6 +239,10 @@ def run_alerts(
     seen = load_seen(state_file)
     tg = telegram or TelegramClient()
     summary: dict[str, dict] = {}
+    # URLs déjà notifiées (ou simulées en dry-run) plus tôt dans CE run.
+    # Évite que la même offre soit envoyée par deux alertes qui matchent toutes
+    # les deux (ex. "Data" + "Data Engineer").
+    notified_this_run: set[str] = set()
 
     for alert in alerts:
         ts = time.strftime("%H:%M:%S")
@@ -187,20 +254,38 @@ def run_alerts(
             print(f"    filtre fraîcheur ≤{alert.max_age_hours}h : {before} → {len(jobs)}")
         urls = [(j.url or "").split("?")[0].rstrip("/").lower() for j in jobs]
         new_urls = set(filter_new(alert.name, urls, seen))
+        # Dédup global : retire les offres déjà envoyées par une alerte précédente
+        # de ce run. On les enregistre quand même dans seen[alert] plus bas pour
+        # ne pas re-tenter au prochain run.
+        cross_dups = new_urls & notified_this_run
+        new_urls -= notified_this_run
         new_jobs = [j for j, u in zip(jobs, urls) if u in new_urls]
-        print(f"    {len(jobs)} offres collectées, {len(new_jobs)} nouvelles")
+        print(
+            f"    {len(jobs)} offres collectées, {len(new_jobs)} nouvelles"
+            + (f", {len(cross_dups)} déjà envoyée(s) par une alerte précédente" if cross_dups else "")
+        )
 
         summary[alert.name] = {
             "total": len(jobs),
             "new": len(new_jobs),
+            "duplicates": len(cross_dups),
         }
 
         if new_jobs and not dry_run:
             msg = format_alert_message(alert, new_jobs)
             if tg.send(msg):
                 record(alert.name, urls, seen)
+                notified_this_run.update(new_urls)
+                notified_this_run.update(cross_dups)
+        elif cross_dups and not dry_run:
+            # Rien à envoyer (tout dédupliqué), mais on enregistre pour ne pas
+            # rejouer la même éviction au prochain run.
+            record(alert.name, urls, seen)
+            notified_this_run.update(cross_dups)
         elif dry_run and new_jobs:
             print(f"    [dry-run] aurait notifié:\n{format_alert_message(alert, new_jobs)[:500]}…")
+            notified_this_run.update(new_urls)
+            notified_this_run.update(cross_dups)
 
     if not dry_run:
         save_seen(seen, state_file)
