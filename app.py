@@ -42,6 +42,7 @@ def pretty_name(slug: str) -> str:
         "france_travail": "France Travail",
         "wttj": "Welcome to the Jungle",
         "linkedin": "LinkedIn",
+        "jobspy": "JobSpy",
         "free_work": "Free-Work",
         "apec": "APEC",
         "hellowork": "HelloWork",
@@ -61,6 +62,7 @@ def run_one(name: str, scraper, payload: dict):
             contract=payload.get("contract") or None,
             remote=bool(payload.get("remote")),
             limit=int(payload.get("limit") or 30),
+            max_age_hours=payload.get("max_age_hours"),
         )
         requested_contract = payload.get("contract") or None
         if requested_contract:
@@ -142,6 +144,13 @@ def search():
     payload = request.get_json(force=True)
     if not payload.get("keywords", "").strip():
         return jsonify({"error": "Mots-clés obligatoires"}), 400
+    if payload.get("max_age_hours") not in (None, ""):
+        try:
+            payload["max_age_hours"] = float(payload["max_age_hours"])
+        except (TypeError, ValueError):
+            return jsonify({"error": "max_age_hours doit être un nombre"}), 400
+    else:
+        payload["max_age_hours"] = None
 
     selected = payload.get("sources") or list(ALL_SCRAPERS.keys())
     scrapers = [(n, ALL_SCRAPERS[n]()) for n in selected if n in ALL_SCRAPERS]

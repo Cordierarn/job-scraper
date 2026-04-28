@@ -6,3 +6,4 @@ rich>=13.7.0
 feedparser>=6.0.0
 flask>=3.0.0
 curl_cffi>=0.7.0
+python-jobspy>=1.1.79; python_version < "3.14"

@@ -20,7 +20,7 @@ BASE = "https://fr.talent.com/jobs"
 class TalentCom(Scraper):
     name = "talent_com"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         params = {"k": keywords}
         if location:
             params["l"] = location

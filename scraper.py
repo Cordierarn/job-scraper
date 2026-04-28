@@ -49,6 +49,7 @@ def parse_args():
     )
     p.add_argument("--remote", action="store_true", help="Uniquement les offres en télétravail")
     p.add_argument("-n", "--limit", type=int, default=30, help="Nombre max d'offres par source (défaut: 30)")
+    p.add_argument("--max-age-hours", type=float, default=None, help="Âge max des offres en heures (si supporté côté source)")
     p.add_argument(
         "-s", "--sources",
         help="Sources à utiliser (séparées par virgule). Défaut: toutes les configurées.",
@@ -85,6 +86,7 @@ def run_one(name, scraper, args) -> tuple[str, list[Job], str | None]:
             contract=args.contract,
             remote=args.remote,
             limit=args.limit,
+            max_age_hours=args.max_age_hours,
         )
         if args.contract:
             jobs = [job for job in jobs if job_matches_contract(job, args.contract)]
@@ -159,6 +161,7 @@ def main():
         + (f" | [cyan]{args.location}[/cyan]" if args.location else "")
         + (f" | [cyan]{args.contract}[/cyan]" if args.contract else "")
         + (" | [cyan]remote[/cyan]" if args.remote else "")
+        + (f" | [cyan]<= {args.max_age_hours}h[/cyan]" if args.max_age_hours is not None else "")
     )
     console.print(f"[bold]Sources:[/bold] {', '.join(n for n, _ in scrapers)}\n")
 

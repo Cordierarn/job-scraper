@@ -2,14 +2,27 @@ from __future__ import annotations
 
 from dataclasses import dataclass, asdict, field
 from typing import Optional
+import random
 import re
 import unicodedata
 import requests
 
-DEFAULT_UA = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-)
+USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Mobile/15E148 Safari/604.1",
+]
+
+DEFAULT_UA = USER_AGENTS[0]
+
+
+def get_random_user_agent() -> str:
+    return random.choice(USER_AGENTS)
 
 CONTRACT_ALIASES = {
     "cdi": {"cdi", "permanent", "perm", "indefinite"},
@@ -97,11 +110,12 @@ class Scraper:
     name: str = "base"
     requires_credentials: bool = False
 
-    def __init__(self, timeout: int = 20):
+    def __init__(self, timeout: int = 20, user_agent: str | None = None):
         self.timeout = timeout
         self.session = requests.Session()
+        self.user_agent = user_agent or get_random_user_agent()
         self.session.headers.update({
-            "User-Agent": DEFAULT_UA,
+            "User-Agent": self.user_agent,
             "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
         })
 
@@ -115,5 +129,6 @@ class Scraper:
         contract: Optional[str] = None,
         remote: bool = False,
         limit: int = 50,
+        max_age_hours: Optional[float] = None,
     ) -> list[Job]:
         raise NotImplementedError

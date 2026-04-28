@@ -12,7 +12,7 @@ class Codeur(Scraper):
     """Codeur.com — projets freelance (ne renvoie que du freelance par nature)."""
     name = "codeur"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         c = normalize_contract(contract)
         # Codeur ne propose que des missions freelance: si l'utilisateur demande
         # explicitement un autre type de contrat, on n'a rien à fournir.

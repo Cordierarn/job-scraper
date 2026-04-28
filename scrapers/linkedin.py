@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import random
+import time
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
 from .base import Scraper, Job, normalize_contract
@@ -19,7 +21,7 @@ GUEST_API = "https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/sea
 class LinkedIn(Scraper):
     name = "linkedin"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         results: list[Job] = []
         seen: set[str] = set()
         c = normalize_contract(contract)
@@ -32,6 +34,8 @@ class LinkedIn(Scraper):
                 params["f_JT"] = CONTRACT_MAP[c]
             if remote:
                 params["f_WT"] = "2"
+            if max_age_hours is not None and max_age_hours <= 24:
+                params["f_TPR"] = "r86400"
             url = f"{GUEST_API}?{urlencode(params)}"
             r = self.session.get(url, timeout=self.timeout)
             if r.status_code != 200:
@@ -64,4 +68,6 @@ class LinkedIn(Scraper):
                     return results
             if new == 0:
                 break
+            if start + per_page < limit:
+                time.sleep(random.uniform(1.5, 3.0))
         return results

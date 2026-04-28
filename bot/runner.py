@@ -84,6 +84,7 @@ def run_one_source(scraper, alert: Alert, location: str | None) -> list[Job]:
             contract=alert.contract,
             remote=alert.remote,
             limit=alert.limit,
+            max_age_hours=alert.max_age_hours,
         )
     except Exception as e:
         print(f"  [{scraper.name}] erreur: {type(e).__name__}: {str(e)[:120]}")

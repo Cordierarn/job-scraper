@@ -101,7 +101,7 @@ class FranceTravail(Scraper):
         self._token_expiry = time.time() + int(data.get("expires_in", 1500))
         return self._token
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         token = self._get_token()
         location_text = (location or "").strip()
         query_terms = [keywords.strip()]

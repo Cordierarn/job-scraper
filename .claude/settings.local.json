@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -X POST http://127.0.0.1:5000/search -H \"Content-Type: application/json\" -d \"{\\\\\"keywords\\\\\":\\\\\"data\\\\\",\\\\\"location\\\\\":\\\\\"Lyon\\\\\",\\\\\"contract\\\\\":\\\\\"alternance\\\\\",\\\\\"limit\\\\\":5,\\\\\"sources\\\\\":[\\\\\"france_travail\\\\\"]}\" -o /tmp/resp.json)",
+      "Bash(python -c \"import json; d=json.load\\(open\\('/tmp/resp.json'\\)\\); print\\('jobs:', len\\(d.get\\('jobs',[]\\)\\)\\); [print\\(f\\\\\"  {j.get\\('source','?'\\):15s} raw={str\\(j.get\\('date_posted'\\)\\)[:30]:30s} iso={j.get\\('date_posted_iso'\\)}\\\\\"\\) for j in d.get\\('jobs',[]\\)[:5]]\")",
+      "WebSearch",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}

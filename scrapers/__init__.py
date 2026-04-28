@@ -8,6 +8,7 @@ from .wttj import WTTJ
 from .apec import Apec
 from .free_work import FreeWork
 from .linkedin import LinkedIn
+from .jobspy import JobSpy
 from .remotive import Remotive
 from .talent import TalentCom
 from .codeur import Codeur
@@ -18,6 +19,7 @@ ALL_SCRAPERS = {
     "jooble": Jooble,
     "indeed": Indeed,
     "linkedin": LinkedIn,
+    "jobspy": JobSpy,
     "hellowork": HelloWork,
     "apec": Apec,
     "wttj": WTTJ,

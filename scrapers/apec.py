@@ -26,7 +26,7 @@ SEARCH_URL = "https://www.apec.fr/cms/webservices/rechercheOffre"
 class Apec(Scraper):
     name = "apec"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         c = normalize_contract(contract)
         # APEC's "lieux" field requires numeric area IDs we don't resolve;
         # fold any free-text location into the keyword query instead.

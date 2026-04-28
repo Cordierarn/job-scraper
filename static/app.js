@@ -34,6 +34,7 @@ form.addEventListener("submit", async (e) => {
     contract: fd.get("contract"),
     remote: fd.get("remote") === "on",
     limit: parseInt(fd.get("limit")) || 30,
+    max_age_hours: fd.get("max_age_hours") ? parseFloat(fd.get("max_age_hours")) : null,
     sources: sources,
   };
   if (!payload.keywords) {

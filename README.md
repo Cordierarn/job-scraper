@@ -17,9 +17,10 @@ Agrégateur d'offres d'emploi multi-sources (France) avec :
 | Free-Work | API JSON publique | — |
 | LinkedIn | Endpoint guest | — |
 | Indeed | `curl_cffi` (TLS impersonation) | — |
+| JobSpy (meta) | Agrégation LinkedIn/Indeed/Glassdoor/Google | — |
 | Talent.com | Scraping HTML | — |
 | Codeur.com | Scraping HTML (freelance) | — |
-| Welcome to the Jungle | Scraping HTML (best-effort) | — |
+| Welcome to the Jungle | API Algolia publique (+ fallback HTML) | — |
 | Remotive | API publique (remote international) | — |
 
 ## Installation locale
@@ -41,6 +42,7 @@ python app.py
 
 ```bash
 python scraper.py -k "data engineer" -l "Lyon" --contract alternance -o csv -f offres.csv
+python scraper.py -k "data engineer" -l "Lyon" --max-age-hours 24
 ```
 
 ## Mode 3 — Bot Telegram (local)
@@ -106,6 +108,7 @@ Le workflow [`.github/workflows/job-bot.yml`](.github/workflows/job-bot.yml) tou
 
 - `locations` — liste de lieux (villes, codes postaux, n° département). Le bot scanne chaque lieu et fusionne.
 - `contract` — `cdi`, `cdd`, `freelance`, `stage`, `alternance`, `interim`, ou omis.
+- `max_age_hours` — filtre de fraîcheur strict (ex: `24`) ; relayé aux sources qui supportent un filtre côté serveur (LinkedIn `f_TPR`, Indeed `fromage`, Adzuna `max_days_old`, JobSpy `hours_old`) puis re-filtré côté bot.
 - `sources` — `null` = toutes ; sinon liste de noms (`"france_travail"`, `"indeed"`, …).
 - `enabled: false` — désactive sans supprimer.
 
@@ -118,5 +121,6 @@ Le workflow [`.github/workflows/job-bot.yml`](.github/workflows/job-bot.yml) tou
 ## Limites connues
 
 - Indeed : peut renvoyer 403 si Cloudflare durcit ; la détection TLS du `curl_cffi` est régulièrement mise à jour.
-- WTTJ : SPA — résultats partiels uniquement (pas de clé Algolia stable).
+- WTTJ : les clés Algolia publiques peuvent changer ; un fallback HTML est gardé en secours.
+- JobSpy : sur CI sans proxy, rester sur des volumes modestes par run (en pratique <= 50) pour garder des résultats stables.
 - Jooble : index US, peu de résultats français pour des requêtes en anglais.

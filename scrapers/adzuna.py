@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import math
 import os
 from .base import Scraper, Job, normalize_contract
 
@@ -24,7 +25,7 @@ class Adzuna(Scraper):
     def is_configured(self) -> bool:
         return bool(self.app_id and self.app_key)
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         results: list[Job] = []
         per_page = 50
         pages = max(1, (limit + per_page - 1) // per_page)
@@ -41,6 +42,8 @@ class Adzuna(Scraper):
                 params["where"] = location
             if c and c in CONTRACT_MAP:
                 params["contract_type"] = CONTRACT_MAP[c]
+            if max_age_hours is not None:
+                params["max_days_old"] = max(1, math.ceil(max_age_hours / 24))
             r = self.session.get(BASE.format(page=page), params=params, timeout=self.timeout)
             if r.status_code != 200:
                 break

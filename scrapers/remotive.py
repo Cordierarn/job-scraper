@@ -6,7 +6,7 @@ from .base import Scraper, Job
 class Remotive(Scraper):
     name = "remotive"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         params = {"search": keywords, "limit": min(limit, 100)}
         r = self.session.get("https://remotive.com/api/remote-jobs", params=params, timeout=self.timeout)
         if r.status_code != 200:

@@ -15,7 +15,7 @@ class Jooble(Scraper):
     def is_configured(self) -> bool:
         return bool(self.api_key)
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         url = f"https://jooble.org/api/{self.api_key}"
         body = {"keywords": keywords, "ResultOnPage": min(limit, 50)}
         if location:

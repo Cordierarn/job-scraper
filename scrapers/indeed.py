@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 from urllib.parse import urlencode
 from bs4 import BeautifulSoup
@@ -38,7 +39,7 @@ class Indeed(Scraper):
     def requires_credentials(self) -> bool:
         return False
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         if not HAS_CURL_CFFI:
             return []
 
@@ -54,6 +55,8 @@ class Indeed(Scraper):
                 params["jt"] = CONTRACT_MAP[c]
             if remote:
                 params["sc"] = "0kf:attr(DSQF7);"
+            if max_age_hours is not None:
+                params["fromage"] = max(1, math.ceil(max_age_hours / 24))
             url = f"{BASE}?{urlencode(params)}"
             try:
                 r = cffi_requests.get(

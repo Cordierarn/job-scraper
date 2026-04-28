@@ -20,7 +20,7 @@ BASE = "https://www.hellowork.com/fr-fr/emploi/recherche.html"
 class HelloWork(Scraper):
     name = "hellowork"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         results: list[Job] = []
         seen_urls: set[str] = set()
         c = normalize_contract(contract)

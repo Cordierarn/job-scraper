@@ -17,7 +17,7 @@ CONTRACT_MAP = {
 class FreeWork(Scraper):
     name = "free_work"
 
-    def search(self, keywords, location=None, contract=None, remote=False, limit=50):
+    def search(self, keywords, location=None, contract=None, remote=False, limit=50, max_age_hours=None):
         params = {
             "searchKeywords": keywords,
             "itemsPerPage": min(limit, 50),
