@@ -366,7 +366,16 @@ input[type="number"] { width: 90px; }
   transition: background .15s;
 }
 .job-link:hover { background: var(--accent-hover); }
-.job-date { font-size: 11px; color: var(--text-muted); }
+.job-date {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: help;
+}
+.job-date-fresh {
+  color: #10b981;
+  font-weight: 600;
+}
 
 .empty-state {
   text-align: center;

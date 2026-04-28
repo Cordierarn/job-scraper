@@ -13,6 +13,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from flask import Flask, Response, jsonify, render_template, request, send_file
 
+from bot.dates import parse_job_date
 from scrapers import ALL_SCRAPERS, Job
 from scrapers.base import job_matches_contract
 
@@ -156,11 +157,18 @@ def search():
 
     unique = dedup(all_jobs)
     return jsonify({
-        "jobs": [j.to_dict() for j in unique],
+        "jobs": [_enrich(j.to_dict()) for j in unique],
         "statuses": statuses,
         "raw_count": len(all_jobs),
         "unique_count": len(unique),
     })
+
+
+def _enrich(job: dict) -> dict:
+    """Ajoute date_posted_iso (ISO 8601 UTC) parsé pour le tri/affichage côté front."""
+    dt = parse_job_date(job.get("date_posted"))
+    job["date_posted_iso"] = dt.isoformat() if dt else None
+    return job
 
 
 @app.route("/export/<fmt>", methods=["POST"])

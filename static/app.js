@@ -102,8 +102,17 @@ function renderResults() {
       .filter(Boolean).some((v) => String(v).toLowerCase().includes(filter));
   });
   jobs.sort((a, b) => {
-    const va = (sortKey === "date" ? a.date_posted : a[sortKey]) || "";
-    const vb = (sortKey === "date" ? b.date_posted : b[sortKey]) || "";
+    if (sortKey === "date") {
+      // Tri sur l'ISO parsé quand dispo (sinon les non-parseables tombent en bas).
+      const va = a.date_posted_iso || "";
+      const vb = b.date_posted_iso || "";
+      if (va && vb) return vb.localeCompare(va);
+      if (va) return -1;
+      if (vb) return 1;
+      return 0;
+    }
+    const va = a[sortKey] || "";
+    const vb = b[sortKey] || "";
     return String(vb).localeCompare(String(va));
   });
 
@@ -129,7 +138,7 @@ function renderResults() {
       </div>
       <div class="job-side">
         ${j.url ? `<a href="${escapeAttr(j.url)}" target="_blank" rel="noopener" class="job-link">Voir l'offre →</a>` : ""}
-        ${j.date_posted ? `<span class="job-date">${escapeHtml(String(j.date_posted).slice(0, 10))}</span>` : ""}
+        ${renderDate(j)}
       </div>
     </div>
   `).join("");
@@ -156,6 +165,37 @@ async function downloadExport(fmt) {
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
+}
+
+function renderDate(j) {
+  // Si on a un ISO parsé : affichage relatif + tooltip avec date absolue.
+  if (j.date_posted_iso) {
+    const dt = new Date(j.date_posted_iso);
+    if (!isNaN(dt)) {
+      const rel = formatRelative(dt);
+      const abs = dt.toLocaleString("fr-FR", { dateStyle: "medium", timeStyle: "short" });
+      const recent = (Date.now() - dt.getTime()) < 24 * 3600 * 1000;
+      const cls = recent ? "job-date job-date-fresh" : "job-date";
+      return `<span class="${cls}" title="${escapeAttr(abs)}">${escapeHtml(rel)}</span>`;
+    }
+  }
+  // Fallback : afficher le texte brut tel quel (utile pour debug si parser échoue).
+  if (j.date_posted) {
+    return `<span class="job-date">${escapeHtml(String(j.date_posted))}</span>`;
+  }
+  return "";
+}
+
+function formatRelative(dt) {
+  const sec = Math.max(0, (Date.now() - dt.getTime()) / 1000);
+  if (sec < 60) return "à l'instant";
+  if (sec < 3600) return `il y a ${Math.floor(sec / 60)} min`;
+  if (sec < 86400) return `il y a ${Math.floor(sec / 3600)} h`;
+  if (sec < 2 * 86400) return "hier";
+  if (sec < 7 * 86400) return `il y a ${Math.floor(sec / 86400)} j`;
+  if (sec < 30 * 86400) return `il y a ${Math.floor(sec / (7 * 86400))} sem.`;
+  // Au-delà d'un mois, montre la date au format DD/MM/YYYY.
+  return dt.toLocaleDateString("fr-FR");
 }
 
 function escapeHtml(s) {
