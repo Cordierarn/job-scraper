@@ -372,6 +372,7 @@ input[type="number"] { width: 90px; }
   white-space: nowrap;
   cursor: help;
 }
+.job-date-fresh { color: var(--accent); font-weight: 600; }
 .job-date-fresh {
   color: #10b981;
   font-weight: 600;
