@@ -48,6 +48,14 @@
     "enabled": true
   },
   {
+    "name": "Intelligence Artificielle — alternance Lyon",
+    "keywords": "intelligence artificielle",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
     "name": "Business Intelligence — alternance Lyon",
     "keywords": "business intelligence",
     "locations": ["Lyon"],
@@ -56,28 +64,92 @@
     "enabled": true
   },
   {
-    "name": "Python développeur — alternance Lyon",
-    "keywords": "python",
-    "locations": ["Lyon"],
+    "name": "Big Data — alternance Lyon",
+    "keywords": "big data",
+    "locations": ["Lyon", "Villeurbanne"],
     "contract": "alternance",
     "limit": 30,
-    "enabled": false,
-    "_comment": "Mets enabled=true pour activer (peut spammer si tu cumules avec 'data')"
+    "enabled": true
+  },
+  {
+    "name": "Python développeur — alternance Lyon",
+    "keywords": "python",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
   },
   {
     "name": "DevOps / Cloud — alternance Lyon",
-    "keywords": "devops cloud",
-    "locations": ["Lyon"],
+    "keywords": "devops",
+    "locations": ["Lyon", "Villeurbanne"],
     "contract": "alternance",
     "limit": 30,
-    "enabled": false
+    "enabled": true
   },
   {
-    "name": "Big Data — alternance Lyon",
-    "keywords": "big data",
-    "locations": ["Lyon"],
+    "name": "Cloud Engineer — alternance Lyon",
+    "keywords": "cloud",
+    "locations": ["Lyon", "Villeurbanne"],
     "contract": "alternance",
     "limit": 30,
-    "enabled": false
+    "enabled": true
+  },
+  {
+    "name": "IoT / Internet of Things — alternance Lyon",
+    "keywords": "iot",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Système embarqué — alternance Lyon",
+    "keywords": "embarqué",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Système embarqué — alternance Saint-Étienne",
+    "keywords": "embarqué",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Cybersécurité — alternance Lyon",
+    "keywords": "cybersécurité",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Full-stack développeur — alternance Lyon",
+    "keywords": "full stack",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "Développeur — alternance Saint-Étienne",
+    "keywords": "développeur",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true
+  },
+  {
+    "name": "R&D embarqué — alternance Lyon",
+    "keywords": "R&D embarqué",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": false,
+    "_comment": "Active si tu veux du R&D pur ; sinon redondant avec embarqué"
   }
 ]

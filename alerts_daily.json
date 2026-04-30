@@ -54,9 +54,108 @@
     "enabled": true
   },
   {
+    "name": "[Daily 18h] Intelligence Artificielle — alternance Lyon",
+    "keywords": "intelligence artificielle",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
     "name": "[Daily 18h] Business Intelligence — alternance Lyon",
     "keywords": "business intelligence",
     "locations": ["Lyon"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Big Data — alternance Lyon",
+    "keywords": "big data",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Python développeur — alternance Lyon",
+    "keywords": "python",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] DevOps — alternance Lyon",
+    "keywords": "devops",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Cloud Engineer — alternance Lyon",
+    "keywords": "cloud",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] IoT / Internet of Things — alternance Lyon",
+    "keywords": "iot",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Système embarqué — alternance Lyon",
+    "keywords": "embarqué",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Système embarqué — alternance Saint-Étienne",
+    "keywords": "embarqué",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Cybersécurité — alternance Lyon",
+    "keywords": "cybersécurité",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Full-stack développeur — alternance Lyon",
+    "keywords": "full stack",
+    "locations": ["Lyon", "Villeurbanne"],
+    "contract": "alternance",
+    "limit": 50,
+    "max_age_hours": 24,
+    "enabled": true
+  },
+  {
+    "name": "[Daily 18h] Développeur — alternance Saint-Étienne",
+    "keywords": "développeur",
+    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
     "contract": "alternance",
     "limit": 50,
     "max_age_hours": 24,
