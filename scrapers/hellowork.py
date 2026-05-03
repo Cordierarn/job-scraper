@@ -16,6 +16,19 @@ CONTRACT_MAP = {
 
 BASE = "https://www.hellowork.com/fr-fr/emploi/recherche.html"
 
+_REL_DATE_RE = re.compile(
+    r"\b(il y a (?:un|une|\d+)\s*(?:minutes?|mn|h(?:eures?)?|jours?|j|semaines?|mois)|aujourd['’]?hui|hier|à l['’]?instant)",
+    re.IGNORECASE,
+)
+
+
+def _extract_relative_date(text: str) -> str | None:
+    """Extrait le fragment de date relative dans le texte brut d'une card."""
+    if not text:
+        return None
+    m = _REL_DATE_RE.search(text)
+    return m.group(1).strip() if m else None
+
 
 class HelloWork(Scraper):
     name = "hellowork"
@@ -48,7 +61,10 @@ class HelloWork(Scraper):
                 if href in seen_urls:
                     continue
                 seen_urls.add(href)
-                container = a.find_parent(["article", "li", "div"]) or a
+                # Remonter au <li> qui englobe toute la card (titre + footer
+                # avec la date relative). `div` matchait un wrapper trop interne
+                # qui n'incluait pas la date, d'où le fix.
+                container = a.find_parent(["li", "article"]) or a.find_parent("div") or a
                 title = a.get_text(" ", strip=True)
                 if not title:
                     title_el = container.select_one("h3, h2, [class*='title']")
@@ -59,6 +75,12 @@ class HelloWork(Scraper):
                 contract_el = container.select_one("[class*='contract'], [class*='Contract']")
                 if not title or len(title) < 3:
                     continue
+                # HelloWork affiche la date publication en bas de la card sous
+                # forme relative ("il y a 2 jours", "Aujourd'hui", "Hier") dans
+                # le texte brut. Notre parse_relative_date côté bot/dates s'en
+                # charge — on extrait juste le bout de texte pertinent.
+                full_text = container.get_text(" ", strip=True)
+                date_posted = _extract_relative_date(full_text)
                 results.append(Job(
                     title=title,
                     company=company_el.get_text(strip=True) if company_el else "N/A",
@@ -66,6 +88,7 @@ class HelloWork(Scraper):
                     url=href,
                     source=self.name,
                     contract=contract_el.get_text(strip=True) if contract_el else None,
+                    date_posted=date_posted,
                 ))
                 new += 1
                 if len(results) >= limit:
