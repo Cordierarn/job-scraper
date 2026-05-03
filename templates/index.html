@@ -67,10 +67,10 @@
             </label>
             <div class="sources-grid">
               {% for s in sources %}
-              <label class="source-chip {% if not s.configured %}disabled{% endif %}" title="{% if not s.configured %}Clé API manquante{% else %}Activée{% endif %}">
+              <label class="source-chip {% if not s.configured %}disabled{% endif %}" title="{% if not s.configured %}{{ s.unavailable_label|capitalize }}{% else %}Activée{% endif %}">
                 <input type="checkbox" name="sources" value="{{ s.name }}" {% if s.configured %}checked{% endif %} {% if not s.configured %}disabled{% endif %}>
                 <span class="source-name">{{ s.label }}</span>
-                {% if s.needs_key %}<span class="badge {% if s.configured %}ok{% else %}ko{% endif %}">{% if s.configured %}API{% else %}clé manquante{% endif %}</span>{% endif %}
+                {% if s.needs_key %}<span class="badge {% if s.configured %}ok{% else %}ko{% endif %}">{% if s.configured %}OK{% else %}{{ s.unavailable_label }}{% endif %}</span>{% endif %}
               </label>
               {% endfor %}
             </div>

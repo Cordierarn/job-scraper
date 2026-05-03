@@ -109,6 +109,10 @@ class Job:
 class Scraper:
     name: str = "base"
     requires_credentials: bool = False
+    # Texte affiché dans l'UI quand requires_credentials=True et que
+    # is_configured()=False. Override pour les sources qui ne prennent pas
+    # une clé API mais une autre dépendance (ex: package Python).
+    unavailable_label: str = "clé manquante"
 
     def __init__(self, timeout: int = 20, user_agent: str | None = None):
         self.timeout = timeout

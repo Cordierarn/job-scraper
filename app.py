@@ -33,6 +33,7 @@ def index():
             "label": pretty_name(name),
             "configured": s.is_configured(),
             "needs_key": s.requires_credentials,
+            "unavailable_label": getattr(s, "unavailable_label", "clé manquante"),
         })
     return render_template("index.html", sources=sources)
 

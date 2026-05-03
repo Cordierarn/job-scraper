@@ -19,6 +19,7 @@ class JobSpy(Scraper):
     # skip silencieusement quand requires_credentials=True et is_configured=False
     # (utile en dev local Python 3.14 où la lib ne s'installe pas).
     requires_credentials = True
+    unavailable_label = "package manquant"
 
     def is_configured(self) -> bool:
         return HAS_JOBSPY
