@@ -115,6 +115,28 @@ def collect_alert_jobs(alert: Alert) -> list[Job]:
     return all_jobs
 
 
+def format_publication_age(raw: str | None) -> str | None:
+    """Convertit date_posted en libellé relatif court ('il y a 2h', 'hier'...)."""
+    dt = parse_job_date(raw)
+    if dt is None:
+        return None
+    now = datetime.now(timezone.utc)
+    sec = max(0.0, (now - dt).total_seconds())
+    if sec < 60:
+        return "à l'instant"
+    if sec < 3600:
+        return f"il y a {int(sec / 60)} min"
+    if sec < 86400:
+        return f"il y a {int(sec / 3600)}h"
+    if sec < 2 * 86400:
+        return "hier"
+    if sec < 7 * 86400:
+        return f"il y a {int(sec / 86400)}j"
+    if sec < 30 * 86400:
+        return f"il y a {int(sec / (7 * 86400))} sem."
+    return dt.strftime("%d/%m/%Y")
+
+
 def format_alert_message(alert: Alert, new_jobs: list[Job]) -> str:
     header = (
         f"🔔 <b>{html.escape(alert.name)}</b>\n"
@@ -127,11 +149,14 @@ def format_alert_message(alert: Alert, new_jobs: list[Job]) -> str:
         location = html.escape(j.location or "—")
         contract = html.escape(str(j.contract)) if j.contract else ""
         salary = html.escape(str(j.salary)) if j.salary else ""
+        age = format_publication_age(j.date_posted)
         meta_bits = [f"🏢 {company}", f"📍 {location}"]
         if contract:
             meta_bits.append(f"📋 {contract}")
         if salary:
             meta_bits.append(f"💶 {salary}")
+        if age:
+            meta_bits.append(f"🗓️ {age}")
         url = j.url or ""
         link = f'<a href="{html.escape(url)}">Voir l\'offre →</a>' if url else ""
         block = (

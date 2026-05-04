@@ -2,154 +2,229 @@
   {
     "name": "Data — alternance Lyon/Villeurbanne",
     "keywords": "data",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Data Engineer — alternance Lyon",
     "keywords": "data engineer",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Data Scientist — alternance Lyon",
     "keywords": "data scientist",
-    "locations": ["Lyon"],
+    "locations": [
+      "Lyon"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Data Analyst — alternance Lyon",
     "keywords": "data analyst",
-    "locations": ["Lyon"],
+    "locations": [
+      "Lyon"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Data — alternance Saint-Étienne",
     "keywords": "data",
-    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "locations": [
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Machine Learning / IA — alternance Lyon",
     "keywords": "machine learning",
-    "locations": ["Lyon"],
+    "locations": [
+      "Lyon"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Intelligence Artificielle — alternance Lyon",
     "keywords": "intelligence artificielle",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Business Intelligence — alternance Lyon",
     "keywords": "business intelligence",
-    "locations": ["Lyon"],
+    "locations": [
+      "Lyon"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Big Data — alternance Lyon",
     "keywords": "big data",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Python développeur — alternance Lyon",
     "keywords": "python",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "DevOps / Cloud — alternance Lyon",
     "keywords": "devops",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Cloud Engineer — alternance Lyon",
     "keywords": "cloud",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "IoT / Internet of Things — alternance Lyon",
     "keywords": "iot",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Système embarqué — alternance Lyon",
     "keywords": "embarqué",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Système embarqué — alternance Saint-Étienne",
     "keywords": "embarqué",
-    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "locations": [
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Cybersécurité — alternance Lyon",
     "keywords": "cybersécurité",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Full-stack développeur — alternance Lyon",
     "keywords": "full stack",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "Développeur — alternance Saint-Étienne",
     "keywords": "développeur",
-    "locations": ["Saint-Étienne", "Saint-Etienne", "42"],
+    "locations": [
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
     "contract": "alternance",
     "limit": 30,
-    "enabled": true
+    "enabled": true,
+    "max_age_hours": 168
   },
   {
     "name": "R&D embarqué — alternance Lyon",
     "keywords": "R&D embarqué",
-    "locations": ["Lyon", "Villeurbanne"],
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
     "contract": "alternance",
     "limit": 30,
     "enabled": false,
-    "_comment": "Active si tu veux du R&D pur ; sinon redondant avec embarqué"
+    "_comment": "Active si tu veux du R&D pur ; sinon redondant avec embarqué",
+    "max_age_hours": 168
   }
 ]
