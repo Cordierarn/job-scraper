@@ -226,5 +226,89 @@
     "enabled": false,
     "_comment": "Active si tu veux du R&D pur ; sinon redondant avec embarqué",
     "max_age_hours": 168
+  },
+  {
+    "name": "Deep Learning — alternance Lyon",
+    "keywords": "deep learning",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Java développeur — alternance Lyon",
+    "keywords": "java",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "NoSQL / MongoDB — alternance Lyon",
+    "keywords": "nosql",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "C embarqué / C++ — alternance Lyon",
+    "keywords": "C embarqué",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Réseaux télécoms — alternance Lyon",
+    "keywords": "réseaux",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Temps réel / Real-time — alternance Lyon",
+    "keywords": "temps réel",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Statistiques — alternance Lyon",
+    "keywords": "statistiques",
+    "locations": [
+      "Lyon",
+      "Villeurbanne"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
   }
 ]
