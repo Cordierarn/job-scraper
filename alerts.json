@@ -1,10 +1,13 @@
 [
   {
-    "name": "Data — alternance Lyon/Villeurbanne",
+    "name": "Data — alternance Lyon/Saint-É",
     "keywords": "data",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -12,43 +15,11 @@
     "max_age_hours": 168
   },
   {
-    "name": "Data Engineer — alternance Lyon",
+    "name": "Data Engineer — alternance Lyon/Saint-É",
     "keywords": "data engineer",
     "locations": [
       "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Data Scientist — alternance Lyon",
-    "keywords": "data scientist",
-    "locations": [
-      "Lyon"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Data Analyst — alternance Lyon",
-    "keywords": "data analyst",
-    "locations": [
-      "Lyon"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Data — alternance Saint-Étienne",
-    "keywords": "data",
-    "locations": [
+      "Villeurbanne",
       "Saint-Étienne",
       "Saint-Etienne",
       "42"
@@ -59,10 +30,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Machine Learning / IA — alternance Lyon",
-    "keywords": "machine learning",
+    "name": "Data Scientist — alternance Lyon/Saint-É",
+    "keywords": "data scientist",
     "locations": [
-      "Lyon"
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -70,104 +45,41 @@
     "max_age_hours": 168
   },
   {
-    "name": "Intelligence Artificielle — alternance Lyon",
+    "name": "Data Analyst — alternance Lyon/Saint-É",
+    "keywords": "data analyst",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Machine Learning / IA — alternance Lyon/Saint-É",
+    "keywords": "machine learning",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Intelligence Artificielle — alternance Lyon/Saint-É",
     "keywords": "intelligence artificielle",
     "locations": [
       "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Business Intelligence — alternance Lyon",
-    "keywords": "business intelligence",
-    "locations": [
-      "Lyon"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Big Data — alternance Lyon",
-    "keywords": "big data",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Python développeur — alternance Lyon",
-    "keywords": "python",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "DevOps / Cloud — alternance Lyon",
-    "keywords": "devops",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Cloud Engineer — alternance Lyon",
-    "keywords": "cloud",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "IoT / Internet of Things — alternance Lyon",
-    "keywords": "iot",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Système embarqué — alternance Lyon",
-    "keywords": "embarqué",
-    "locations": [
-      "Lyon",
-      "Villeurbanne"
-    ],
-    "contract": "alternance",
-    "limit": 30,
-    "enabled": true,
-    "max_age_hours": 168
-  },
-  {
-    "name": "Système embarqué — alternance Saint-Étienne",
-    "keywords": "embarqué",
-    "locations": [
+      "Villeurbanne",
       "Saint-Étienne",
       "Saint-Etienne",
       "42"
@@ -178,11 +90,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Cybersécurité — alternance Lyon",
-    "keywords": "cybersécurité",
+    "name": "Business Intelligence — alternance Lyon/Saint-É",
+    "keywords": "business intelligence",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -190,11 +105,119 @@
     "max_age_hours": 168
   },
   {
-    "name": "Full-stack développeur — alternance Lyon",
+    "name": "Big Data — alternance Lyon/Saint-É",
+    "keywords": "big data",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Python développeur — alternance Lyon/Saint-É",
+    "keywords": "python",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "DevOps / Cloud — alternance Lyon/Saint-É",
+    "keywords": "devops",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Cloud Engineer — alternance Lyon/Saint-É",
+    "keywords": "cloud",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "IoT / Internet of Things — alternance Lyon/Saint-É",
+    "keywords": "iot",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Système embarqué — alternance Lyon/Saint-É",
+    "keywords": "embarqué",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Cybersécurité — alternance Lyon/Saint-É",
+    "keywords": "cybersécurité",
+    "locations": [
+      "Lyon",
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
+    ],
+    "contract": "alternance",
+    "limit": 30,
+    "enabled": true,
+    "max_age_hours": 168
+  },
+  {
+    "name": "Full-stack développeur — alternance Lyon/Saint-É",
     "keywords": "full stack",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -215,11 +238,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "R&D embarqué — alternance Lyon",
+    "name": "R&D embarqué — alternance Lyon/Saint-É",
     "keywords": "R&D embarqué",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -228,11 +254,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Deep Learning — alternance Lyon",
+    "name": "Deep Learning — alternance Lyon/Saint-É",
     "keywords": "deep learning",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -240,11 +269,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Java développeur — alternance Lyon",
+    "name": "Java développeur — alternance Lyon/Saint-É",
     "keywords": "java",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -252,11 +284,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "NoSQL / MongoDB — alternance Lyon",
+    "name": "NoSQL / MongoDB — alternance Lyon/Saint-É",
     "keywords": "nosql",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -264,11 +299,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "C embarqué / C++ — alternance Lyon",
+    "name": "C embarqué / C++ — alternance Lyon/Saint-É",
     "keywords": "C embarqué",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -276,11 +314,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Réseaux télécoms — alternance Lyon",
+    "name": "Réseaux télécoms — alternance Lyon/Saint-É",
     "keywords": "réseaux",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -288,11 +329,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Temps réel / Real-time — alternance Lyon",
+    "name": "Temps réel / Real-time — alternance Lyon/Saint-É",
     "keywords": "temps réel",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
@@ -300,11 +344,14 @@
     "max_age_hours": 168
   },
   {
-    "name": "Statistiques — alternance Lyon",
+    "name": "Statistiques — alternance Lyon/Saint-É",
     "keywords": "statistiques",
     "locations": [
       "Lyon",
-      "Villeurbanne"
+      "Villeurbanne",
+      "Saint-Étienne",
+      "Saint-Etienne",
+      "42"
     ],
     "contract": "alternance",
     "limit": 30,
